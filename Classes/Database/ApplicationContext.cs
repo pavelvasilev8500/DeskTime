@@ -8,7 +8,7 @@ namespace DeskTime.Classes.Database
     internal class ApplicationContext : DbContext
     {
         private string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        public DbSet<_12HWDBModel> _12HWeather { get; set; } = null;
+        //public DbSet<_12HWDBModel> _12HWeather { get; set; } = null;
 
         public ApplicationContext()
         {

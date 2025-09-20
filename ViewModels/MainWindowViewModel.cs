@@ -98,24 +98,24 @@ namespace DeskTime.ViewModels
                     Date = dt.ToString("dddd, d MMMM");
                     if (dt.Minute == 0 && dt.Second == 0)
                     {
-                        using (ApplicationContext dbContext = new ApplicationContext())
-                        {
-                            _inDb = false;
-                            dbContext._12HWeather.Include(t => t.WeatherModel.Temperature).
-                                           Include(r => r.WeatherModel.RealFeelTemperature).
-                                           Load();
-                            foreach (var o in dbContext._12HWeather.Local.ToList())
-                            {
-                                if (DateTime.Parse(o.WeatherModel.DateTime).Hour == dt.Hour || DateTime.Parse(o.WeatherModel.DateTime).Hour == DateTime.Now.AddHours(1).Hour)
-                                {
-                                    WeatherText = cityReq + ", THDBOffline " + Math.Round(o.WeatherModel.Temperature.Value) + $" °{o.WeatherModel.Temperature.Unit}";
-                                    RealFeelWeatherText = $"Ощущается как {Math.Round(o.WeatherModel.RealFeelTemperature.Value) + $" °{o.WeatherModel.RealFeelTemperature.Unit}"}";
-                                    _inDb = true;
-                                }
-                            }
-                            if (!_inDb)
-                                GetWeather();
-                        }
+                        //using (ApplicationContext dbContext = new ApplicationContext())
+                        //{
+                        //    _inDb = false;
+                        //    dbContext._12HWeather.Include(t => t.WeatherModel.Temperature).
+                        //                   Include(r => r.WeatherModel.RealFeelTemperature).
+                        //                   Load();
+                        //    foreach (var o in dbContext._12HWeather.Local.ToList())
+                        //    {
+                        //        if (DateTime.Parse(o.WeatherModel.DateTime).Hour == dt.Hour || DateTime.Parse(o.WeatherModel.DateTime).Hour == DateTime.Now.AddHours(1).Hour)
+                        //        {
+                        //            WeatherText = cityReq + ", THDBOffline " + Math.Round(o.WeatherModel.Temperature.Value) + $" °{o.WeatherModel.Temperature.Unit}";
+                        //            RealFeelWeatherText = $"Ощущается как {Math.Round(o.WeatherModel.RealFeelTemperature.Value) + $" °{o.WeatherModel.RealFeelTemperature.Unit}"}";
+                        //            _inDb = true;
+                        //        }
+                        //    }
+                        //    if (!_inDb)
+                        //        GetWeather();
+                        //}
                     }
                     if(_sayTime)
                     {
@@ -165,7 +165,7 @@ namespace DeskTime.ViewModels
 
         private async void GetWeather()
         {
-            var weather = await Weather.GetWeather("28573", Settings.ApiKey, "ru-RU", true, true);
+            var weather = await Weather.GetWeather("Gomel", "", "e454373f51804440af5205401251809");
             WeatherText = cityReq + ", " + weather.Item1;
             RealFeelWeatherText = weather.Item2;
         }
