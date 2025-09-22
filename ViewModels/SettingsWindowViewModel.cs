@@ -34,7 +34,7 @@ namespace DeskTime.ViewModels
             set 
             { 
                 SetProperty(ref _color, value); 
-                Settings.SettingsApp.WeatherColor = value;
+                Settings.SettingsApp.TimeColor = value;
             }
         }
 
@@ -42,14 +42,12 @@ namespace DeskTime.ViewModels
         {
             _ea = ea;
             ApplyCommand = new DelegateCommand(Apply);
-
-            //_ea.GetEvent<ObjectEvent>().Subscribe();
         }
 
         private void Apply()
         {
+            _ea.GetEvent<ObjectEvent>().Publish("Changed");
             Settings.SaveSettings();
-            _ea.GetEvent<ObjectEvent>().Publish(new object[] { "color", $"#{Color}" });
         }
     }
 }

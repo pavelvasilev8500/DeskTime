@@ -83,6 +83,7 @@ namespace DeskTime.ViewModels
         {
             _ea = ea;
             _ea.GetEvent<ObjectEvent>().Subscribe(ChangeSettings);
+            TimeColor = new BrushConverter().ConvertFromString($"{Settings.SettingsApp.TimeColor.ToString()}") as Brush;
             GetWeather();
             _speechSynthesizer.Volume = 100;
             var dateTimeThread = new Thread(() =>
@@ -119,9 +120,8 @@ namespace DeskTime.ViewModels
 
         private void ChangeSettings(object obj)
         {
-            Settings.CanMove = true;
-            object[] settings = obj as object[];
-            TimeColor = new BrushConverter().ConvertFromString($"{settings[1].ToString()}") as Brush;
+
+            TimeColor = new BrushConverter().ConvertFromString($"{Settings.SettingsApp.TimeColor.ToString()}") as Brush;
         }
 
         private void SayHour(int hour)
