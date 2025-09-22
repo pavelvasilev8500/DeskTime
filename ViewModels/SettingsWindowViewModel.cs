@@ -1,12 +1,8 @@
-﻿using DeskTime.Events;
+﻿using DeskTime.Classes.System;
+using DeskTime.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeskTime.ViewModels
 {
@@ -35,7 +31,11 @@ namespace DeskTime.ViewModels
         public string Color
         {
             get { return _color; }
-            set { SetProperty(ref _color, value); }
+            set 
+            { 
+                SetProperty(ref _color, value); 
+                Settings.SettingsApp.WeatherColor = value;
+            }
         }
 
         public SettingsWindowViewModel(IEventAggregator ea)
@@ -48,6 +48,7 @@ namespace DeskTime.ViewModels
 
         private void Apply()
         {
+            Settings.SaveSettings();
             _ea.GetEvent<ObjectEvent>().Publish(new object[] { "color", $"#{Color}" });
         }
     }

@@ -1,4 +1,4 @@
-﻿using DeskTime.Models;
+﻿using DeskTime.Models.Weather;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Reflection;
@@ -8,11 +8,11 @@ namespace DeskTime.Classes.Database
     internal class ApplicationContext : DbContext
     {
         private string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        //public DbSet<_12HWDBModel> _12HWeather { get; set; } = null;
+        public DbSet<DbWeatherModel> Weather { get; set; } = null;
 
         public ApplicationContext()
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

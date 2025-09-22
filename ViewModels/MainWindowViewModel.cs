@@ -2,12 +2,10 @@
 using DeskTime.Classes.Database;
 using DeskTime.Classes.System;
 using DeskTime.Events;
-using Microsoft.EntityFrameworkCore;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Speech.Synthesis;
 using System.Threading;
 using System.Windows;
@@ -34,8 +32,6 @@ namespace DeskTime.ViewModels
         private string _weatherText;
         private string _realFeelWeatherText;
         private bool _sayTime = true;
-
-        private bool _inDb { get; set; } = false;
 
         public Brush TimeColor
         {
@@ -98,24 +94,14 @@ namespace DeskTime.ViewModels
                     Date = dt.ToString("dddd, d MMMM");
                     if (dt.Minute == 0 && dt.Second == 0)
                     {
-                        //using (ApplicationContext dbContext = new ApplicationContext())
-                        //{
-                        //    _inDb = false;
-                        //    dbContext._12HWeather.Include(t => t.WeatherModel.Temperature).
-                        //                   Include(r => r.WeatherModel.RealFeelTemperature).
-                        //                   Load();
-                        //    foreach (var o in dbContext._12HWeather.Local.ToList())
-                        //    {
-                        //        if (DateTime.Parse(o.WeatherModel.DateTime).Hour == dt.Hour || DateTime.Parse(o.WeatherModel.DateTime).Hour == DateTime.Now.AddHours(1).Hour)
-                        //        {
-                        //            WeatherText = cityReq + ", THDBOffline " + Math.Round(o.WeatherModel.Temperature.Value) + $" °{o.WeatherModel.Temperature.Unit}";
-                        //            RealFeelWeatherText = $"Ощущается как {Math.Round(o.WeatherModel.RealFeelTemperature.Value) + $" °{o.WeatherModel.RealFeelTemperature.Unit}"}";
-                        //            _inDb = true;
-                        //        }
-                        //    }
-                        //    if (!_inDb)
-                        //        GetWeather();
-                        //}
+                        using (ApplicationContext db = new ApplicationContext())
+                        {
+                            var weather = DbManager.GetDb(dt.ToString("yyyy-MM-dd HH:mm"));
+                            if (weather == null)
+                                GetWeather();
+                            else
+                                ShowWeather(weather.Temperature.ToString(), weather.RealFeealTemperature.ToString());
+                        }
                     }
                     if(_sayTime)
                     {
@@ -163,11 +149,16 @@ namespace DeskTime.ViewModels
             {}
         }
 
+        private void ShowWeather(string temp, string realf_temp)
+        {
+            WeatherText = $"{cityReq}, {temp}°С";
+            RealFeelWeatherText = $"Ощущается как: {realf_temp}°С";
+        }
+
         private async void GetWeather()
         {
-            var weather = await Weather.GetWeather("Gomel", "", "e454373f51804440af5205401251809");
-            WeatherText = cityReq + ", " + weather.Item1;
-            RealFeelWeatherText = weather.Item2;
+            var weather = await Weather.GetForecast("Gomel", "", "e454373f51804440af5205401251809");
+            ShowWeather(weather.Item1, weather.Item2);
         }
     }
 }

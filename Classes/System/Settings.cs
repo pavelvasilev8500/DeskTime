@@ -1,21 +1,19 @@
 ﻿using DeskTime.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Windows;
-using System.Windows.Documents;
 
 namespace DeskTime.Classes.System
 {
     public static class Settings
     {
-        public static event Action<object> valueChanged;
+
         private static readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        public static SettingsModel SettingsApp { get; set; }
+
+        public static event Action<object> valueChanged;
 
         private static bool _isAutostart;
         private static bool _canMove;
@@ -43,59 +41,41 @@ namespace DeskTime.Classes.System
                 }
             }
         }
-        public static bool Position { get; set; }
-        public static double Left { get; set; }
-        public static double Top { get; set; }
-        public static string ApiKey { get; private set; }
 
         public static void LoadSettings()
         {
+            SettingsApp = new SettingsModel();
+            SettingsApp.Position = new PositionModel();
             try
             {
                 FileStream fs = new FileStream($"{_path}\\settings.json", FileMode.Open);
                 var buffer = new byte[fs.Length];
                 fs.Read(buffer, 0, buffer.Length);
-                var settings = JsonConvert.DeserializeObject<SettingsModel>(Encoding.UTF8.GetString(buffer));
-                IsAutostart = settings.IsAutostart;
-                CanMove = settings.CanMove;
-                Left = settings.Position.Left;
-                Top = settings.Position.Top;
-                Position = true;
-                ApiKey = settings.ApiKey;
+                SettingsApp = JsonConvert.DeserializeObject<SettingsModel>(Encoding.UTF8.GetString(buffer));
             }
             catch (Exception)
             {
-                IsAutostart = false;
-                CanMove = true;
-                Position = false;
+                SettingsApp.IsAutostart = false;
+                SettingsApp.CanMove = true;
+                SettingsApp.PositionCahnged = false;
+                SaveSettings();
             }
         }
 
         public static void SaveSettings()
         {
-            var settings = new SettingsModel
-            {
-                IsAutostart = IsAutostart,
-                CanMove = CanMove,
-                Position = new PositionModel
-                {
-                    Left = Left,
-                    Top = Top,
-                },
-                ApiKey = ApiKey
-            };
             try
             {
                 using (FileStream fs = new FileStream($"{_path}\\settings.json", FileMode.Truncate))
                 {
-                    fs.Write(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(settings)));
+                    fs.Write(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(SettingsApp)));
                 }
             }
             catch (Exception)
             {
                 using (FileStream fs = new FileStream($"{_path}\\settings.json", FileMode.CreateNew))
                 {
-                    fs.Write(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(settings)));
+                    fs.Write(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(SettingsApp)));
                 }
             }
         }
