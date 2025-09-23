@@ -1,5 +1,4 @@
 ﻿using DeskTime.Classes.System;
-using DeskTime.Events;
 using Prism.Events;
 using System;
 using System.Drawing;

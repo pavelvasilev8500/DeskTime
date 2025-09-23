@@ -1,6 +1,7 @@
 ﻿using DeskTime.Models;
 using Newtonsoft.Json;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -55,11 +56,25 @@ namespace DeskTime.Classes.System
             }
             catch (Exception)
             {
-                SettingsApp.IsAutostart = false;
-                SettingsApp.CanMove = true;
-                SettingsApp.PositionCahnged = false;
+                LoadDefaultSettings();
                 SaveSettings();
             }
+        }
+
+        private static void LoadDefaultSettings()
+        {
+            SettingsApp = new SettingsModel()
+            {
+                IsAutostart = false,
+                CanMove = false,
+                PositionCahnged = false,
+                Position = new PositionModel(),
+                TimeColor = Brushes.White,
+                DateColor = Brushes.White,
+                WeatherColor = Brushes.White,
+                ApiKey = "",
+                City = ""
+            };
         }
 
         public static void SaveSettings()

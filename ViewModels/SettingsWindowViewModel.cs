@@ -34,7 +34,7 @@ namespace DeskTime.ViewModels
             set 
             { 
                 SetProperty(ref _color, value); 
-                Settings.SettingsApp.TimeColor = value;
+                //Settings.SettingsApp.TimeColor = value;
             }
         }
 
