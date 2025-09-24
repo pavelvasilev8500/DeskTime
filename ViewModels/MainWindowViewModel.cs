@@ -22,9 +22,9 @@ namespace DeskTime.ViewModels
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
         private PromptBuilder _promptBuilder = new PromptBuilder();
 
-        private Brush _timeColor = Brushes.White;
-        private Brush _dateColor = Brushes.White;
-        private Brush _weatherColor = Brushes.White;
+        private Brush _timeColor = Settings.SettingsApp.TimeColor;
+        private Brush _dateColor = Settings.SettingsApp.DateColor;
+        private Brush _weatherColor = Settings.SettingsApp.WeatherColor;
         private Visibility _visibility = Visibility.Visible;
 
         private string _time;
@@ -83,7 +83,6 @@ namespace DeskTime.ViewModels
         {
             _ea = ea;
             _ea.GetEvent<ObjectEvent>().Subscribe(ChangeSettings);
-            TimeColor = new BrushConverter().ConvertFromString($"{Settings.SettingsApp.TimeColor.ToString()}") as Brush;
             GetWeather();
             _speechSynthesizer.Volume = 100;
             var dateTimeThread = new Thread(() =>

@@ -1,5 +1,6 @@
 ﻿using DeskTime.Models.Weather;
 using DeskTime.Models.Weather.Forecast;
+using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
 
 namespace DeskTime.Classes.Database
@@ -11,6 +12,8 @@ namespace DeskTime.Classes.Database
             DbWeatherModel weather;
             using (ApplicationContext db = new ApplicationContext())
             {
+                db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
                 foreach (var o in forecastWeather.Forecast.Forecastday)
                 {
                     foreach (var w in o.Hour)

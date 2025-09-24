@@ -93,6 +93,7 @@ namespace DeskTime.Views
                 DragMove();
                 Settings.SettingsApp.Position.Left = Left;
                 Settings.SettingsApp.Position.Top = Top;
+                Settings.SaveSettings();
             }
         }
 

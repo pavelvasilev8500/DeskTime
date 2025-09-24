@@ -1,10 +1,10 @@
 ﻿using DeskTime.Models;
 using Newtonsoft.Json;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Windows.Media;
 
 namespace DeskTime.Classes.System
 {
@@ -63,7 +63,7 @@ namespace DeskTime.Classes.System
 
         private static void LoadDefaultSettings()
         {
-            SettingsApp = new SettingsModel()
+            SettingsApp = new SettingsModel
             {
                 IsAutostart = false,
                 CanMove = false,
@@ -75,6 +75,7 @@ namespace DeskTime.Classes.System
                 ApiKey = "",
                 City = ""
             };
+
         }
 
         public static void SaveSettings()

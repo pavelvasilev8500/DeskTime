@@ -3,6 +3,7 @@ using DeskTime.Events;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
+using System.Windows.Media;
 
 namespace DeskTime.ViewModels
 {
@@ -34,7 +35,7 @@ namespace DeskTime.ViewModels
             set 
             { 
                 SetProperty(ref _color, value); 
-                //Settings.SettingsApp.TimeColor = value;
+                Settings.SettingsApp.TimeColor = new BrushConverter().ConvertFromString($"{Settings.SettingsApp.TimeColor.ToString()}") as Brush;
             }
         }
 
