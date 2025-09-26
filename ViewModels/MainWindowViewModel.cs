@@ -17,15 +17,13 @@ namespace DeskTime.ViewModels
     {
         IEventAggregator _ea;
 
-        const string cityReq = "Гомель";
-
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
         private PromptBuilder _promptBuilder = new PromptBuilder();
 
         private Brush _timeColor = Settings.SettingsApp.TimeColor;
         private Brush _dateColor = Settings.SettingsApp.DateColor;
         private Brush _weatherColor = Settings.SettingsApp.WeatherColor;
-        private Visibility _visibility = Visibility.Visible;
+        private Visibility _weatherVisibility = Visibility.Visible;
 
         private string _time;
         private string _date;
@@ -48,10 +46,10 @@ namespace DeskTime.ViewModels
             get => _dateColor;
             set => SetProperty(ref _dateColor, value);
         }
-        public Visibility Visibility
+        public Visibility WeatherVisibility
         {
-            get => _visibility;
-            set => SetProperty(ref _visibility, value);
+            get => _weatherVisibility;
+            set => SetProperty(ref _weatherVisibility, value);
         }
         public string Time
         {
@@ -94,14 +92,11 @@ namespace DeskTime.ViewModels
                     Date = dt.ToString("dddd, d MMMM");
                     if (dt.Minute == 0 && dt.Second == 0)
                     {
-                        using (ApplicationContext db = new ApplicationContext())
-                        {
-                            var weather = DbManager.GetDb(dt.ToString("yyyy-MM-dd HH:mm"));
-                            if (weather == null)
-                                GetWeather();
-                            else
-                                ShowWeather(weather.Temperature.ToString(), weather.RealFeealTemperature.ToString());
-                        }
+                        var weather = DbManager.GetDb(dt.ToString("yyyy-MM-dd HH:mm"));
+                        if (weather == null)
+                            GetWeather();
+                        else
+                            ShowWeather(weather.Temperature.ToString(), weather.RealFeealTemperature.ToString());
                     }
                     if(_sayTime)
                     {
@@ -150,14 +145,30 @@ namespace DeskTime.ViewModels
 
         private void ShowWeather(string temp, string realf_temp)
         {
-            WeatherText = $"{cityReq}, {temp}°С";
+            WeatherText = $"{Settings.SettingsApp.City}, {temp}°С";
             RealFeelWeatherText = $"Ощущается как: {realf_temp}°С";
         }
 
         private async void GetWeather()
         {
-            var weather = await Weather.GetForecast("Gomel", "", "e454373f51804440af5205401251809");
-            ShowWeather(weather.Item1, weather.Item2);
+            var weather = await Weather.GetForecast(Settings.SettingsApp.City, "", Settings.SettingsApp.ApiKey);
+            if(weather.Item1 == "")
+            {
+                var dt = DateTime.Now;
+                var dbWeather = DbManager.GetDb(dt.ToString("yyyy-MM-dd HH:mm"));
+                if (dbWeather == null)
+                    WeatherVisibility = Visibility.Hidden;
+                else
+                {
+                    WeatherVisibility = Visibility.Visible;
+                    ShowWeather(dbWeather.Temperature.ToString(), dbWeather.RealFeealTemperature.ToString());
+                }
+            }
+            else
+            {
+                WeatherVisibility = Visibility.Visible;
+                ShowWeather(weather.Item1, weather.Item2);
+            }
         }
     }
 }

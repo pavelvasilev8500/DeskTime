@@ -10,43 +10,11 @@ namespace DeskTime.Classes.System
 {
     public static class Settings
     {
-
         private static readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static SettingsModel SettingsApp { get; set; }
 
-        public static event Action<object> valueChanged;
-
-        private static bool _isAutostart;
-        private static bool _canMove;
-        public static bool IsAutostart 
-        {
-            get => _isAutostart;
-            set
-            {
-                if(_isAutostart != value)
-                {
-                    _isAutostart = value;
-                    valueChanged?.Invoke(_isAutostart);
-                }
-            } 
-        }
-        public static bool CanMove 
-        {
-            get => _canMove;
-            set
-            {
-                if (_canMove != value)
-                {
-                    _canMove = value;
-                    valueChanged?.Invoke(_canMove);
-                }
-            }
-        }
-
         public static void LoadSettings()
         {
-            SettingsApp = new SettingsModel();
-            SettingsApp.Position = new PositionModel();
             try
             {
                 FileStream fs = new FileStream($"{_path}\\settings.json", FileMode.Open);
@@ -57,7 +25,6 @@ namespace DeskTime.Classes.System
             catch (Exception)
             {
                 LoadDefaultSettings();
-                SaveSettings();
             }
         }
 
@@ -75,7 +42,6 @@ namespace DeskTime.Classes.System
                 ApiKey = "",
                 City = ""
             };
-
         }
 
         public static void SaveSettings()

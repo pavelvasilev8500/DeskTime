@@ -11,7 +11,6 @@ namespace DeskTime.Views
 {
     public partial class MainWindow : Window
     {
-        IEventAggregator _ea;
         private NotifyIcon _notifyIcon;
         private ToolStripMenuItem _toolStripMenuItem;
         private readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -21,16 +20,15 @@ namespace DeskTime.Views
         public MainWindow(IEventAggregator ea)
         {
             InitializeComponent();
-            Settings.valueChanged += Settings_valueChanged;
-            _ea = ea;
-            _canMove = Settings.CanMove;
+            Settings.SettingsApp.PropertyChanged += SettingsApp_PropertyChanged;
+            _canMove = Settings.SettingsApp.CanMove;
             ShowDesktop.AddHook(this);
             ShowInTaskbar = false;
             SetupTrayIcon();
             Loaded += MainWindow_Loaded;
         }
 
-        private void Settings_valueChanged(object obj)
+        private void SettingsApp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Settings.SaveSettings();
         }
@@ -58,14 +56,13 @@ namespace DeskTime.Views
         private void _toolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             AutoRun.SetAutorunValue(_toolStripMenuItem.Checked);
-            Settings.IsAutostart = _toolStripMenuItem.Checked;
+            Settings.SettingsApp.IsAutostart = _toolStripMenuItem.Checked;
         }
 
         private void CloseApplication()
         {
             _notifyIcon.Dispose();
             Settings.SaveSettings();
-            var a = Settings.CanMove;
             Environment.Exit(0);
             //System.Windows.Application.Current.Shutdown();
         }
@@ -93,14 +90,14 @@ namespace DeskTime.Views
                 DragMove();
                 Settings.SettingsApp.Position.Left = Left;
                 Settings.SettingsApp.Position.Top = Top;
-                Settings.SaveSettings();
+                Settings.SettingsApp.PositionCahnged = true;
             }
         }
 
         private void CanMove(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             _canMove = _canMove == true ? false : true;
-            Settings.CanMove = _canMove;
+            Settings.SettingsApp.CanMove = _canMove;
         }
     }
 }

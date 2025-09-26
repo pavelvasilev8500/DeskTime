@@ -10,8 +10,7 @@
         Background="Transparent"
         >
     <Grid PreviewMouseLeftButtonDown="Drag"
-          PreviewMouseRightButtonDown="CanMove"
-          Visibility="{Binding Visibility}">
+          PreviewMouseRightButtonDown="CanMove">
         <StackPanel Orientation="Vertical">
             <TextBlock x:Name="TimeTextBlock"
                        Text="{Binding Time}"
@@ -31,12 +30,14 @@
             <TextBlock x:Name="WeatherTextBlock"
                        Text="{Binding WeatherText}"
                        Foreground="{Binding WeatherColor}"
+                       Visibility="{Binding WeatherVisibility}"
                        FontSize="28"
                        TextAlignment="Center"
                        FontFamily="Segoe UI"
                        HorizontalAlignment="Stretch"/>
             <TextBlock Text="{Binding RealFeelWeatherText}"
                        Foreground="{Binding WeatherColor}"
+                       Visibility="{Binding WeatherVisibility}"
                        FontSize="28"
                        TextAlignment="Center"
                        FontFamily="Segoe UI"

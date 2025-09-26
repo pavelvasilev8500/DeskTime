@@ -1,6 +1,5 @@
 ﻿using DeskTime.Models.Weather;
 using DeskTime.Models.Weather.Forecast;
-using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
 
 namespace DeskTime.Classes.Database
