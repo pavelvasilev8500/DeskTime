@@ -155,7 +155,7 @@ namespace DeskTime.ViewModels
             if(weather.Item1 == "")
             {
                 var dt = DateTime.Now;
-                var dbWeather = DbManager.GetDb(dt.ToString("yyyy-MM-dd HH:mm"));
+                var dbWeather = DbManager.GetDb(dt.ToString("yyyy-MM-dd HH:00"));
                 if (dbWeather == null)
                     WeatherVisibility = Visibility.Hidden;
                 else
