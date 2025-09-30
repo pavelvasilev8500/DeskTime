@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeskTime.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"          
+        xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
@@ -14,7 +17,7 @@
         Height="600" 
         Width="400">
     <Grid>
-        <Border Background="#909090"
+        <Border Background="White"
                 CornerRadius="20">
             <Grid>
                 <Grid.RowDefinitions>
@@ -39,7 +42,7 @@
                                   BlurRadius="6"/>
                     </Border.Effect>
                 </Border>
-                
+
                 <TextBlock Grid.Row="0" 
                            Text="Settings"
                            Foreground="Black"
@@ -48,53 +51,79 @@
                            HorizontalAlignment="Center"
                            PreviewMouseLeftButtonDown="Move"/>
 
-                <Button Grid.Row="0"
-                        Content="Close"
-                        Click="Close"
-                        Height="30"
-                        Width="30"
-                        HorizontalAlignment="Right"/>
-
-                <StackPanel Grid.Row="1"
-                            Orientation="Vertical">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Color"/>
-                            <StackPanel Orientation="Vertical">
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="R"/>
-                                    <TextBox Text="{Binding Color}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="G"/>
-                                    <TextBox Text="{Binding Color}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="B"/>
-                                    <TextBox Text="{Binding Color}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Hex"/>
-                                    <TextBox Text="{Binding Color}"/>
-                                </StackPanel>
-                                <Button Content="Apply"
-                                Command="{Binding ApplyCommand}"/>
-                            </StackPanel>
+                <materialDesign:Card
+                    Grid.Row="1"
+  Width="200"
+ >
+                    <Grid
+   >
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+        Height="140" />
+                            <RowDefinition
+        Height="*" />
+                            <RowDefinition
+        Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image
+      Height="140"
+      Source="Resources/Chartridge046_small.jpg"
+      Stretch="UniformToFill" />
+                        <Button
+      Grid.Row="0"
+      Margin="0,0,16,-20"
+      HorizontalAlignment="Right"
+      VerticalAlignment="Bottom"
+      Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+                            <materialDesign:PackIcon
+        Kind="Bike" />
+                        </Button>
+                        <StackPanel
+      Grid.Row="1"
+      Margin="8,24,8,0">
+                            <TextBlock
+        FontWeight="Bold">
+      Cycling
+                            </TextBlock>
+                            <TextBlock
+        VerticalAlignment="Center"
+        Text="A great way to keep fit and forget about the constant grind of IT."
+        TextWrapping="Wrap" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="City"/>
-                            <TextBox Text="{Binding Color}"/>
+                        <StackPanel
+      Grid.Row="2"
+      Margin="8"
+      HorizontalAlignment="Right"
+      Orientation="Horizontal">
+                            <Button
+        Width="30"
+        Padding="2,0,2,0"
+        materialDesign:RippleAssist.IsCentered="True"
+        Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon
+          Kind="ShareVariant" />
+                            </Button>
+                            <Button
+        Width="30"
+        Padding="2,0,2,0"
+        materialDesign:RippleAssist.IsCentered="True"
+        Style="{StaticResource MaterialDesignToolButton}">
+                                <materialDesign:PackIcon
+          Kind="Heart" />
+                            </Button>
+                            <materialDesign:PopupBox
+        Padding="2,0,2,0"
+        Style="{StaticResource MaterialDesignToolPopupBox}">
+                                <StackPanel>
+                                    <Button
+            Content="More" />
+                                    <Button
+            Content="Options" />
+                                </StackPanel>
+                            </materialDesign:PopupBox>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Time font size"/>
-                            <TextBox Text="{Binding Color}"/>
-                        </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Weather font size"/>
-                        <TextBox Text="{Binding Color}"/>
-                    </StackPanel>
-                </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
 
                 <Border Grid.Row="2"
                         CornerRadius="0,0,20,20" 
