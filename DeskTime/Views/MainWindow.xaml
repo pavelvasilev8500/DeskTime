@@ -1,0 +1,47 @@
+﻿<Window x:Class="DeskTime.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        SizeToContent="WidthAndHeight"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        >
+    <Grid PreviewMouseLeftButtonDown="Drag"
+          PreviewMouseRightButtonDown="CanMove">
+        <StackPanel Orientation="Vertical">
+            <TextBlock x:Name="TimeTextBlock"
+                       Text="{Binding Time}"
+                       Foreground="{Binding TimeColor}"
+                       FontSize="135"
+                       FontWeight="DemiBold"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Stretch"
+                       FontFamily="Segoe UI"/>
+            <TextBlock x:Name="DateTextBlock"
+                       Text="{Binding Date}"
+                       Foreground="{Binding DateColor}"
+                       FontSize="28"
+                       TextAlignment="Center"
+                       FontFamily="Segoe UI"
+                       HorizontalAlignment="Stretch"/>
+            <TextBlock x:Name="WeatherTextBlock"
+                       Text="{Binding WeatherText}"
+                       Foreground="{Binding WeatherColor}"
+                       Visibility="{Binding WeatherVisibility}"
+                       FontSize="28"
+                       TextAlignment="Center"
+                       FontFamily="Segoe UI"
+                       HorizontalAlignment="Stretch"/>
+            <TextBlock Text="{Binding RealFeelWeatherText}"
+                       Foreground="{Binding WeatherColor}"
+                       Visibility="{Binding WeatherVisibility}"
+                       FontSize="28"
+                       TextAlignment="Center"
+                       FontFamily="Segoe UI"
+                       HorizontalAlignment="Stretch"/>
+        </StackPanel>
+    </Grid>
+</Window>
