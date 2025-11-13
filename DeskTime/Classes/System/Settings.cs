@@ -1,5 +1,6 @@
-﻿using DeskTime.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Resources.Classes.Models.DeskTimeApp.Position;
+using Resources.Classes.Models.DeskTimeApp.Settings;
 using System;
 using System.IO;
 using System.Reflection;
@@ -10,14 +11,14 @@ namespace DeskTime.Classes.System
 {
     public static class Settings
     {
-        private static readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private static readonly string _path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "settings.json");
         public static SettingsModel SettingsApp { get; set; }
 
         public static void LoadSettings()
         {
             try
             {
-                FileStream fs = new FileStream($"{_path}\\settings.json", FileMode.Open);
+                FileStream fs = new FileStream(_path, FileMode.Open);
                 var buffer = new byte[fs.Length];
                 fs.Read(buffer, 0, buffer.Length);
                 SettingsApp = JsonConvert.DeserializeObject<SettingsModel>(Encoding.UTF8.GetString(buffer));

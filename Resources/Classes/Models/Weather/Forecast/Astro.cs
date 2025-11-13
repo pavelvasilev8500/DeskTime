@@ -1,4 +1,4 @@
-﻿namespace DeskTime.Models.Weather.Forecast
+﻿namespace Resources.Classes.Models.Weather.Forecast
 {
     internal class Astro
     {

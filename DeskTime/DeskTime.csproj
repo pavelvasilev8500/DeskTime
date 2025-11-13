@@ -23,6 +23,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Weather\Forecast\" />
+    <ProjectReference Include="..\ModuleSettings\ModuleSettings.csproj" />
+    <ProjectReference Include="..\Resources\Resources.csproj" />
   </ItemGroup>
 </Project>

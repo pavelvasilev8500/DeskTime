@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeskTime", "DeskTime\DeskTi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleSettings", "ModuleSettings\ModuleSettings.csproj", "{40DC9BB1-3E22-2560-D40F-7B1C265F37A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{5C75FFDE-CAFD-4E81-89E8-0B062E8AB984}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{40DC9BB1-3E22-2560-D40F-7B1C265F37A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40DC9BB1-3E22-2560-D40F-7B1C265F37A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40DC9BB1-3E22-2560-D40F-7B1C265F37A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C75FFDE-CAFD-4E81-89E8-0B062E8AB984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C75FFDE-CAFD-4E81-89E8-0B062E8AB984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C75FFDE-CAFD-4E81-89E8-0B062E8AB984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C75FFDE-CAFD-4E81-89E8-0B062E8AB984}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

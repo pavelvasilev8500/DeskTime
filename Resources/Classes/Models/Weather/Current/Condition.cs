@@ -1,4 +1,4 @@
-﻿namespace DeskTime.Models.Weather.Current
+﻿namespace Resources.Classes.Models.Weather.Current
 {
     internal class Condition
     {

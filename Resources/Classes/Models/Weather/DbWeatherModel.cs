@@ -1,4 +1,4 @@
-﻿namespace DeskTime.Models.Weather
+﻿namespace Resources.Classes.Models.Weather
 {
     internal class DbWeatherModel
     {

@@ -1,6 +1,6 @@
-﻿using DeskTime.Models.Weather.Current;
+﻿using Resources.Classes.Models.Weather.Current;
 
-namespace DeskTime.Models.Weather.Forecast
+namespace Resources.Classes.Models.Weather.Forecast
 {
     internal class Day
     {

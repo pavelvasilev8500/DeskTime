@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeskTime.Models.Weather.Current
+namespace Resources.Classes.Models.Weather.Current
 {
     internal class CurrentWeather
     {
