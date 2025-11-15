@@ -17,5 +17,3 @@ namespace Resources.Classes.Models.DeskTimeApp.Settings
 
     }
 }
-
-//Hello
