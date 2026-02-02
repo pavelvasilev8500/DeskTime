@@ -28,7 +28,6 @@ namespace DeskTime.ViewModels
         private string _date;
         private string _weatherText;
         private string _realFeelWeatherText;
-        private bool _sayTime = true;
 
         public Brush TimeColor
         {
@@ -70,11 +69,6 @@ namespace DeskTime.ViewModels
             get => _realFeelWeatherText;
             set => SetProperty(ref _realFeelWeatherText, value);
         }
-        public bool SayTime
-        {
-            get => _sayTime;
-            set => SetProperty(ref _sayTime, value);
-        }
 
         public MainWindowViewModel(IEventAggregator ea)
         {
@@ -99,7 +93,7 @@ namespace DeskTime.ViewModels
                         else
                             ShowWeather(weather.Temperature.ToString(), weather.RealFeealTemperature.ToString());
                     }
-                    if(_sayTime)
+                    if(Settings.SettingsApp.TimeSpeech.Equals(true))
                     {
                         if (dt.Minute == 0 && dt.Second == 0)
                         {
