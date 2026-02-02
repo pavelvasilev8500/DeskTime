@@ -1,7 +1,7 @@
 ﻿using DeskTime.Classes.Data;
 using DeskTime.Classes.Database;
+using DeskTime.Classes.Events;
 using DeskTime.Classes.System;
-using DeskTime.Events;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
@@ -15,8 +15,7 @@ namespace DeskTime.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        IEventAggregator _ea;
-
+        private IEventAggregator _ea;
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
         private PromptBuilder _promptBuilder = new PromptBuilder();
 
@@ -80,7 +79,8 @@ namespace DeskTime.ViewModels
         public MainWindowViewModel(IEventAggregator ea)
         {
             _ea = ea;
-            _ea.GetEvent<ObjectEvent>().Subscribe(ChangeSettings);
+            Settings.EA = ea;
+            ea.GetEvent<ColorEvent>().Subscribe(GetColor);
             GetWeather();
             _speechSynthesizer.Volume = 100;
             var dateTimeThread = new Thread(() =>
@@ -112,10 +112,17 @@ namespace DeskTime.ViewModels
             dateTimeThread.Start();
         }
 
-        private void ChangeSettings(object obj)
+        private void GetColor(Boolean update)
         {
+            if (update.Equals(true))
+                UpdateColor();
+        }
 
-            TimeColor = new BrushConverter().ConvertFromString($"{Settings.SettingsApp.TimeColor.ToString()}") as Brush;
+        private void UpdateColor()
+        {
+            TimeColor = Settings.SettingsApp.TimeColor;
+            DateColor = Settings.SettingsApp.DateColor;
+            WeatherColor = Settings.SettingsApp.WeatherColor;
         }
 
         private void SayHour(int hour)
@@ -139,8 +146,10 @@ namespace DeskTime.ViewModels
                 _speechSynthesizer.Speak(_promptBuilder);
                 _promptBuilder.ClearContent();
             }
-            catch (Exception ex)
-            {}
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void ShowWeather(string temp, string realf_temp)

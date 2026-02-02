@@ -16,14 +16,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
     <PackageReference Include="System.Speech" Version="6.0.0" />
+    <PackageReference Include="WPF.ColorPicker" Version="5.0.0.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ModuleSettings\ModuleSettings.csproj" />
-    <ProjectReference Include="..\Resources\Resources.csproj" />
   </ItemGroup>
 </Project>

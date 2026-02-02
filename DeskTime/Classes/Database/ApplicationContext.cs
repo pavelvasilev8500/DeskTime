@@ -1,4 +1,4 @@
-﻿using DeskTime.Models.Weather;
+﻿using DeskTime.Models.DataModels.Db;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Reflection;

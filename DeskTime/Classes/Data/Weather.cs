@@ -1,6 +1,6 @@
 ﻿using DeskTime.Classes.Database;
-using DeskTime.Models.Weather;
-using DeskTime.Models.Weather.Forecast;
+using DeskTime.Models.DataModels.Weather;
+using DeskTime.Models.DataModels.Weather.Forecast;
 using Newtonsoft.Json;
 using System;
 using System.Net;

@@ -1,5 +1,5 @@
-﻿using DeskTime.Models.Weather;
-using DeskTime.Models.Weather.Forecast;
+﻿using DeskTime.Models.DataModels.Db;
+using DeskTime.Models.DataModels.Weather.Forecast;
 using System.Linq;
 
 namespace DeskTime.Classes.Database
