@@ -81,6 +81,7 @@ namespace DeskTime.ViewModels
             _ea = ea;
             Settings.EA = ea;
             ea.GetEvent<ColorEvent>().Subscribe(GetColor);
+            ea.GetEvent<WeatherUpdateEvent>().Subscribe(GetWeather);
             GetWeather();
             _speechSynthesizer.Volume = 100;
             var dateTimeThread = new Thread(() =>
@@ -110,6 +111,12 @@ namespace DeskTime.ViewModels
             });
             dateTimeThread.Name = "UpdateThread";
             dateTimeThread.Start();
+        }
+
+        private void GetWeather(Boolean update)
+        {
+            if (update.Equals(true))
+                GetWeather();
         }
 
         private void GetColor(Boolean update)

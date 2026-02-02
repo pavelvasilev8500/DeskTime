@@ -33,7 +33,7 @@ namespace DeskTime.Views
         {
             InitializeComponent();
             //ShowDesktop.AddHook(this);
-            //ShowInTaskbar = false;
+            ShowInTaskbar = false;
             SetupTrayIcon();
             Loaded += MainWindow_Loaded;
         }
@@ -119,7 +119,8 @@ namespace DeskTime.Views
 
         private void _weatherUpdate_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Wather Update");
+            if (Settings.EA != null)
+                Settings.EA.GetEvent<WeatherUpdateEvent>().Publish(true);
         }
 
         private void _timepspeech_CheckedChanged(object sender, EventArgs e)
